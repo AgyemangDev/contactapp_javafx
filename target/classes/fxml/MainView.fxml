@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="fr.isen.java2.controller.MainController">
+
+    <!-- Top toolbar -->
+    <top>
+        <ToolBar styleClass="top-toolbar">
+            <Label text="Contact Manager" styleClass="app-title"/>
+            <Region fx:id="spacer" HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="searchField" promptText="Search..." />
+        </ToolBar>
+    </top>
+
+    <!-- Center table -->
+    <center>
+        <TableView fx:id="personTable" styleClass="table-view">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID"/>
+                <TableColumn fx:id="firstNameColumn" text="First Name"/>
+                <TableColumn fx:id="lastNameColumn" text="Last Name"/>
+                <TableColumn fx:id="nicknameColumn" text="Nickname"/>
+                <TableColumn fx:id="phoneColumn" text="Phone"/>
+                <TableColumn fx:id="emailColumn" text="Email"/>
+            </columns>
+        </TableView>
+    </center>
+
+    <!-- Bottom buttons -->
+<bottom>
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+        <Button fx:id="addButton" text="Add" onAction="#handleAdd" styleClass="flat-button"/>
+        <Button fx:id="updateButton" text="Update" onAction="#handleUpdate" styleClass="flat-button"/>
+        <Button fx:id="deleteButton" text="Delete" onAction="#handleDelete" styleClass="flat-button"/>
+    </HBox>
+</bottom>
+</BorderPane>

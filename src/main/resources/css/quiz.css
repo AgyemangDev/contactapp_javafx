@@ -1,0 +1,38 @@
+/* Top toolbar */
+.top-toolbar {
+    -fx-background-color: #6200EE;
+    -fx-padding: 10;
+}
+.app-title {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+/* Buttons */
+.flat-button {
+    -fx-background-color: #03DAC5;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 5 15;
+}
+.flat-button:hover {
+    -fx-background-color: #018786;
+    -fx-text-fill: white;
+}
+
+/* TableView */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5,0,0,1);
+}
+.table-view .column-header-background {
+    -fx-background-color: #BB86FC;
+    -fx-border-color: transparent;
+}
+.table-view .column-header, .table-view .filler {
+    -fx-size: 30px;
+}
