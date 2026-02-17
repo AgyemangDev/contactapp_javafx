@@ -1,5 +1,6 @@
 /Users/gyamfiagyemang/Desktop/java/java_project/contactapp/src/main/java/fr/isen/java2/App.java
 /Users/gyamfiagyemang/Desktop/java/java_project/contactapp/src/main/java/fr/isen/java2/controller/MainController.java
+/Users/gyamfiagyemang/Desktop/java/java_project/contactapp/src/main/java/fr/isen/java2/controller/PersonFormController.java
 /Users/gyamfiagyemang/Desktop/java/java_project/contactapp/src/main/java/fr/isen/java2/dao/PersonDao.java
 /Users/gyamfiagyemang/Desktop/java/java_project/contactapp/src/main/java/fr/isen/java2/dao/PersonDaoImpl.java
 /Users/gyamfiagyemang/Desktop/java/java_project/contactapp/src/main/java/fr/isen/java2/db/DataSourceFactory.java

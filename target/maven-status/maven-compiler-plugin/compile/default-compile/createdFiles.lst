@@ -2,5 +2,8 @@ fr/isen/java2/model/Person.class
 fr/isen/java2/db/DataSourceFactory.class
 fr/isen/java2/App.class
 fr/isen/java2/controller/MainController.class
+fr/isen/java2/controller/MainController$1.class
 fr/isen/java2/dao/PersonDao.class
+fr/isen/java2/controller/MainController$1$1.class
 fr/isen/java2/dao/PersonDaoImpl.class
+fr/isen/java2/controller/PersonFormController.class
