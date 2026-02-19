@@ -1,0 +1,72 @@
+/* =============================================
+   PERSON FORM - CONTACT FORM STYLES
+   ============================================= */
+
+@import "common.css";
+
+/* === FORM CONTAINER === */
+.form-container {
+    -fx-background-color: -fx-background;
+}
+
+/* === FORM HEADER === */
+.form-header {
+    -fx-padding: 0 0 16 0;
+}
+
+.form-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary;
+}
+
+/* === FORM SECTIONS === */
+.form-section {
+    -fx-spacing: 16;
+}
+
+.section-icon {
+    -fx-font-size: 18px;
+}
+
+/* === FORM GRID === */
+.form-grid {
+    -fx-hgap: 16;
+    -fx-vgap: 16;
+}
+
+.form-grid .label {
+    -fx-font-weight: 500;
+    -fx-text-fill: -fx-text-secondary;
+    -fx-font-size: 13px;
+}
+
+/* === PHOTO SECTION === */
+.photo-section {
+    -fx-padding: 16;
+    -fx-background-color: -fx-surface-variant;
+    -fx-background-radius: 4;
+    -fx-border-color: -fx-divider;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+}
+
+.photo-preview {
+    -fx-border-color: -fx-primary;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-effect: -fx-shadow-md;
+}
+
+/* === FORM ACTIONS === */
+.form-actions {
+    -fx-padding: 16 0 0 0;
+    -fx-border-color: -fx-divider transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* === REQUIRED FIELD INDICATOR === */
+.required-indicator {
+    -fx-text-fill: -fx-error;
+    -fx-font-weight: bold;
+}

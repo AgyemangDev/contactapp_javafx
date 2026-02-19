@@ -1,0 +1,40 @@
+
+
+.root {
+    /* Primary Colors - Dark Blue Theme */
+    -fx-primary: #1565C0;              /* Deep Blue */
+    -fx-primary-dark: #0D47A1;         /* Darker Blue */
+    -fx-primary-light: #1976D2;        /* Lighter Blue */
+    -fx-primary-lighter: #42A5F5;      /* Even Lighter */
+    
+    /* Accent Colors */
+    -fx-accent: #00BCD4;               /* Cyan Accent */
+    -fx-accent-dark: #0097A7;          /* Dark Cyan */
+    
+    /* Status Colors */
+    -fx-success: #4CAF50;              /* Green */
+    -fx-warning: #FF9800;              /* Orange */
+    -fx-error: #F44336;                /* Red */
+    -fx-info: #2196F3;                 /* Light Blue */
+    
+    /* Neutral Colors */
+    -fx-background: #FAFAFA;           /* Off White */
+    -fx-surface: #FFFFFF;              /* Pure White */
+    -fx-surface-variant: #F5F5F5;      /* Light Gray */
+    -fx-divider: #E0E0E0;              /* Divider Gray */
+    
+    /* Text Colors */
+    -fx-text-primary: #212121;         /* Almost Black */
+    -fx-text-secondary: #757575;       /* Medium Gray */
+    -fx-text-disabled: #BDBDBD;        /* Light Gray */
+    -fx-text-on-primary: #FFFFFF;      /* White on Blue */
+    
+    /* Border & Outline */
+    -fx-border-color: #BDBDBD;
+    -fx-outline: #9E9E9E;
+    
+    /* Shadows */
+    -fx-shadow-sm: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+    -fx-shadow-md: dropshadow(gaussian, rgba(0,0,0,0.15), 4, 0, 0, 2);
+    -fx-shadow-lg: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 4);
+}

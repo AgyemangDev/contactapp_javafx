@@ -4,76 +4,123 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="fr.isen.java2.controller.PersonFormController"
-      spacing="15" style="-fx-background-color: #FAFAFA;">
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="fr.isen.java2.controller.PersonFormController"
+            stylesheets="@../css/person-form.css"
+            styleClass="form-container"
+            minWidth="700" minHeight="550" maxHeight="650">
     
-    <padding>
-        <Insets top="25" right="25" bottom="25" left="25"/>
-    </padding>
-
-    <Label fx:id="formTitle" text="Add Person" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-
-    <!-- Personal Info Section -->
-    <TitledPane text="Personal Info" expanded="true">
-        <GridPane hgap="10" vgap="10">
+    <!-- TOP: Form Header -->
+    <top>
+        <VBox styleClass="form-header">
             <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets top="24" right="24" bottom="16" left="24"/>
             </padding>
-            
-            <Label text="First Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-            <TextField fx:id="firstNameField" GridPane.rowIndex="0" GridPane.columnIndex="1" 
-                       style="-fx-background-radius: 5px;"/>
+            <Label fx:id="formTitle" text="➕ Add Contact" styleClass="form-title"/>
+            <Separator/>
+        </VBox>
+    </top>
 
-            <Label text="Last Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-            <TextField fx:id="lastNameField" GridPane.rowIndex="1" GridPane.columnIndex="1" 
-                       style="-fx-background-radius: 5px;"/>
+    <!-- CENTER: Form Content -->
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+            <VBox spacing="20">
+                <padding>
+                    <Insets top="20" right="24" bottom="20" left="24"/>
+                </padding>
 
-            <Label text="Nickname:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-            <TextField fx:id="nicknameField" GridPane.rowIndex="2" GridPane.columnIndex="1" 
-                       style="-fx-background-radius: 5px;"/>
+                <!-- Two Column Layout: Info on Left, Photo on Right -->
+                <HBox spacing="24">
+                    
+                    <!-- LEFT SIDE: All Form Fields -->
+                    <VBox spacing="16" HBox.hgrow="ALWAYS">
+                        
+                        <!-- Personal Information -->
+                        <TitledPane text="👤 Personal Information" expanded="true" collapsible="false">
+                            <GridPane hgap="12" vgap="14">
+                                <padding>
+                                    <Insets top="16" right="16" bottom="16" left="16"/>
+                                </padding>
+                                
+                                <Label text="First Name *" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                <TextField fx:id="firstNameField" promptText="Enter first name"
+                                           GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
 
-            <Label text="Birth Date:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-            <DatePicker fx:id="birthDatePicker" GridPane.rowIndex="3" GridPane.columnIndex="1" 
-                        style="-fx-background-radius: 5px;"/>
-        </GridPane>
-    </TitledPane>
+                                <Label text="Last Name *" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                <TextField fx:id="lastNameField" promptText="Enter last name"
+                                           GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
 
-    <!-- Contact Info Section -->
-    <TitledPane text="Contact Info" expanded="true">
-        <GridPane hgap="10" vgap="10">
+                                <Label text="Nickname" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                <TextField fx:id="nicknameField" promptText="Optional"
+                                           GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+
+                                <Label text="Birth Date" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                <DatePicker fx:id="birthDatePicker" promptText="Select date"
+                                            GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+                                
+                                <columnConstraints>
+                                    <ColumnConstraints minWidth="90" prefWidth="100"/>
+                                    <ColumnConstraints hgrow="ALWAYS" minWidth="200"/>
+                                </columnConstraints>
+                            </GridPane>
+                        </TitledPane>
+
+                        <!-- Contact Information -->
+                        <TitledPane text="📞 Contact Information" expanded="true" collapsible="false">
+                            <GridPane hgap="12" vgap="14">
+                                <padding>
+                                    <Insets top="16" right="16" bottom="16" left="16"/>
+                                </padding>
+                                
+                                <Label text="Phone" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                <TextField fx:id="phoneField" promptText="+1 (555) 123-4567"
+                                           GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+
+                                <Label text="Email" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                <TextField fx:id="emailField" promptText="email@example.com"
+                                           GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+
+                                <Label text="Address" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                <TextField fx:id="addressField" promptText="Street, City, Country"
+                                           GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+                                
+                                <columnConstraints>
+                                    <ColumnConstraints minWidth="90" prefWidth="100"/>
+                                    <ColumnConstraints hgrow="ALWAYS" minWidth="200"/>
+                                </columnConstraints>
+                            </GridPane>
+                        </TitledPane>
+                        
+                    </VBox>
+
+                    <!-- RIGHT SIDE: Photo Section -->
+                    <VBox spacing="12" alignment="TOP_CENTER" styleClass="photo-section" minWidth="180" prefWidth="180">
+                        <padding>
+                            <Insets top="16" right="16" bottom="16" left="16"/>
+                        </padding>
+                        <Label text="📷 Photo" styleClass="form-label"/>
+                        <ImageView fx:id="photoView" fitHeight="140" fitWidth="140" 
+                                   preserveRatio="true" styleClass="photo-preview"/>
+                        <Button text="Choose Image" onAction="#handleSelectImage" 
+                                styleClass="button-secondary" maxWidth="Infinity"/>
+                    </VBox>
+
+                </HBox>
+                
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- BOTTOM: Action Buttons -->
+    <bottom>
+        <HBox spacing="12" alignment="CENTER_RIGHT" styleClass="form-actions">
             <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets top="16" right="24" bottom="20" left="24"/>
             </padding>
-            
-            <Label text="Phone:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-            <TextField fx:id="phoneField" GridPane.rowIndex="0" GridPane.columnIndex="1" 
-                       style="-fx-background-radius: 5px;"/>
-
-            <Label text="Email:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-            <TextField fx:id="emailField" GridPane.rowIndex="1" GridPane.columnIndex="1" 
-                       style="-fx-background-radius: 5px;"/>
-
-            <Label text="Address:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-            <TextField fx:id="addressField" GridPane.rowIndex="2" GridPane.columnIndex="1" 
-                       style="-fx-background-radius: 5px;"/>
-        </GridPane>
-    </TitledPane>
-
-    <!-- Photo Section -->
-    <VBox spacing="5" alignment="CENTER">
-        <Label text="Profile Photo"/>
-        <ImageView fx:id="photoView" fitHeight="100" fitWidth="100" preserveRatio="true" 
-                   style="-fx-border-color: #BDBDBD; -fx-border-radius: 5px;"/>
-        <Button text="Select Image" onAction="#handleSelectImage" 
-                style="-fx-background-radius: 5px;"/>
-    </VBox>
-
-    <!-- Buttons -->
-    <HBox spacing="15" alignment="CENTER_RIGHT">
-        <Button text="Cancel" onAction="#handleCancel" 
-                style="-fx-background-radius: 5px; -fx-min-width: 80px;"/>
-        <Button fx:id="saveButton" text="Save" onAction="#handleSave"
-                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5px; -fx-min-width: 80px;"/>
-    </HBox>
-</VBox>
+            <Button text="✖ Cancel" onAction="#handleCancel" styleClass="button-secondary" minWidth="100"/>
+            <Button fx:id="saveButton" text="💾 Save Contact" onAction="#handleSave" 
+                    styleClass="button-success" minWidth="120"/>
+        </HBox>
+    </bottom>
+    
+</BorderPane>

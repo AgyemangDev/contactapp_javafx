@@ -5,36 +5,48 @@
 <?import javafx.geometry.Insets?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fr.isen.java2.controller.MainController">
+            fx:controller="fr.isen.java2.controller.MainController"
+            stylesheets="@../css/main-view.css"
+            styleClass="main-view-container">
 
     <!-- Top toolbar -->
     <top>
-        <ToolBar>
-            <Label text="Contact Manager" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+        <ToolBar styleClass="main-toolbar">
+            <Label text="📇 Contact Manager" styleClass="app-title"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <TextField fx:id="searchField" promptText="Search..." />
+            <TextField fx:id="searchField" promptText="🔍 Search contacts..."/>
         </ToolBar>
     </top>
 
-    <!-- Center table -->
+    <!-- Center table - FULLY RESPONSIVE -->
     <center>
-        <TableView fx:id="personTable">
-            <columns>
-                <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
-                <TableColumn fx:id="firstNameColumn" text="First Name" prefWidth="120"/>
-                <TableColumn fx:id="lastNameColumn" text="Last Name" prefWidth="120"/>
-                <TableColumn fx:id="nicknameColumn" text="Nickname" prefWidth="100"/>
-                <TableColumn fx:id="phoneColumn" text="Phone" prefWidth="120"/>
-                <TableColumn fx:id="emailColumn" text="Email" prefWidth="150"/>
-            </columns>
-        </TableView>
+        <VBox VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets top="16" right="16" bottom="16" left="16"/>
+            </padding>
+            
+            <TableView fx:id="personTable"
+           styleClass="contacts-table"
+           VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="idColumn" text="ID" minWidth="50" prefWidth="60" maxWidth="80"/>
+                    <TableColumn fx:id="firstNameColumn" text="First Name" minWidth="100"/>
+                    <TableColumn fx:id="lastNameColumn" text="Last Name" minWidth="100"/>
+                    <TableColumn fx:id="nicknameColumn" text="Nickname" minWidth="80"/>
+                    <TableColumn fx:id="phoneColumn" text="Phone" minWidth="120"/>
+                    <TableColumn fx:id="emailColumn" text="Email" minWidth="150"/>
+                    <TableColumn fx:id="addressColumn" text="Address" minWidth="150"/>
+                </columns>
+            </TableView>
+        </VBox>
     </center>
 
-    <!-- Bottom buttons -->
+    <!-- Bottom action bar -->
     <bottom>
-        <HBox spacing="10" alignment="CENTER_RIGHT" style="-fx-padding: 10;">
-            <Button fx:id="addButton" text="Add Person" onAction="#handleAdd" 
-                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-min-width: 100px;"/>
+        <HBox spacing="12" alignment="CENTER_RIGHT" styleClass="bottom-action-bar">
+            <Label text="Total Contacts: 0" fx:id="contactCountLabel" styleClass="contact-count"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="addButton" text="➕ Add Contact" onAction="#handleAdd" styleClass="button-success"/>
         </HBox>
     </bottom>
 </BorderPane>

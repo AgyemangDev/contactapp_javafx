@@ -9,15 +9,25 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class MainController {
 
     @FXML
     private TableView<Person> personTable;
+
+    @FXML private TableColumn<Person, Integer> idColumn;
+@FXML private TableColumn<Person, String> firstNameColumn;
+@FXML private TableColumn<Person, String> lastNameColumn;
+@FXML private TableColumn<Person, String> nicknameColumn;
+@FXML private TableColumn<Person, String> phoneColumn;
+@FXML private TableColumn<Person, String> emailColumn;
+@FXML private TableColumn<Person, String> addressColumn;
 
     @FXML
     private Button addButton;
@@ -25,6 +35,14 @@ public class MainController {
     @FXML
     public void initialize() {
         System.out.println("Controller initialized");
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+nicknameColumn.setCellValueFactory(new PropertyValueFactory<>("nickname"));
+phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+emailColumn.setCellValueFactory(new PropertyValueFactory<>("emailAddress"));
+addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
 
         // Add Actions column (Edit/Delete buttons per row)
         TableColumn<Person, Void> actionCol = new TableColumn<>("Actions");
