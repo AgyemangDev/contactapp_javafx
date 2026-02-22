@@ -2,6 +2,7 @@ package fr.isen.java2;
 
 import fr.isen.java2.dao.PersonDAO;
 import fr.isen.java2.db.DatabaseManager;
+import fr.isen.java2.model.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +10,7 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class PersonDAOTest {
@@ -107,5 +108,59 @@ public class PersonDAOTest {
         assertEquals("Street 1", updatedPerson.getAddress());
         assertEquals("john1@mail.com", updatedPerson.getEmailAddress());
         assertEquals(LocalDate.of(1990, 1, 1), updatedPerson.getBirthDate());
+    }
+    @Test
+    void shouldFailUpdateWhenFirstnameIsNull() {
+        var person = personDAO.findAll().getFirst();
+        person.setFirstName(null);
+
+        assertThrows(RuntimeException.class, () -> {
+            personDAO.updatePerson(person);
+        });
+    }
+    @Test
+    void shouldCreatePerson() {
+
+        // Arrange
+        var newPerson = new Person();
+        newPerson.setLastName("Walker");
+        newPerson.setFirstName("Paul");
+        newPerson.setNickname("PW");
+        newPerson.setPhoneNumber("4444444444");
+        newPerson.setAddress("Street 4");
+        newPerson.setEmailAddress("paul@mail.com");
+        newPerson.setBirthDate(LocalDate.of(1995, 5, 5));
+
+        // Act
+        personDAO.createPerson(newPerson);
+
+        // Assert
+        var persons = personDAO.findAll();
+
+        assertEquals(4, persons.size());
+        assertEquals(4, newPerson.getIdperson());
+
+        var inserted = persons.getLast();
+
+        assertEquals("Walker", inserted.getLastName());
+        assertEquals("Paul", inserted.getFirstName());
+        assertEquals("PW", inserted.getNickname());
+        assertEquals("4444444444", inserted.getPhoneNumber());
+        assertEquals("Street 4", inserted.getAddress());
+        assertEquals("paul@mail.com", inserted.getEmailAddress());
+        assertEquals(LocalDate.of(1995, 5, 5), inserted.getBirthDate());
+    }
+
+    @Test
+    void shouldFailCreateWhenLastnameIsNull() {
+
+        var newPerson = new fr.isen.java2.model.Person();
+        newPerson.setLastName(null); // NOT NULL column
+        newPerson.setFirstName("Test");
+        newPerson.setNickname("TT");
+
+        assertThrows(RuntimeException.class, () -> {
+            personDAO.createPerson(newPerson);
+        });
     }
 }

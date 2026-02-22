@@ -42,19 +42,20 @@ public class PersonDAO {
             throw new RuntimeException("Error deleting person with id " + id, e);
         }
     }
+
     public void updatePerson(Person person) {
 
         String sql = """
-            UPDATE person
-            SET lastname = ?,
-                firstname = ?,
-                nickname = ?,
-                phone_number = ?,
-                address = ?,
-                email_address = ?,
-                birth_date = ?
-            WHERE idperson = ?
-            """;
+                UPDATE person
+                SET lastname = ?,
+                    firstname = ?,
+                    nickname = ?,
+                    phone_number = ?,
+                    address = ?,
+                    email_address = ?,
+                    birth_date = ?
+                WHERE idperson = ?
+                """;
 
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -62,14 +63,45 @@ public class PersonDAO {
             bindPersonParameters(ps, person);
             ps.setInt(8, person.getIdperson());
 
-            int affectedRows = ps.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new RuntimeException("Update failed: person not found");
-            }
+            ps.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException("Error updating person", e);
+        }
+    }
+
+    public void createPerson(Person person) {
+
+        String sql = """
+                INSERT INTO person (
+                    lastname,
+                    firstname,
+                    nickname,
+                    phone_number,
+                    address,
+                    email_address,
+                    birth_date
+                ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                """;
+
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            bindPersonParameters(ps, person);
+
+            ps.executeUpdate();
+
+            // Get generated ID
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    person.setIdperson(generatedKeys.getInt(1));
+                } else {
+                    throw new RuntimeException("Insert failed: no ID obtained");
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error creating person", e);
         }
     }
 
