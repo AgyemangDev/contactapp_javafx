@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS person (
     birth_date DATE NULL);
 
 DELETE FROM person;
+DELETE FROM sqlite_sequence WHERE name='person';
 
 INSERT INTO person (lastname, firstname, nickname, phone_number, address, email_address, birth_date) VALUES
                                                                                                          ('Smith', 'John', 'JS', '1111111111', 'Street 1', 'john1@mail.com', '2000-01-01'),

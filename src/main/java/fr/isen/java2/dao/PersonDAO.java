@@ -3,37 +3,53 @@ package fr.isen.java2.dao;
 import fr.isen.java2.db.DatabaseManager;
 import fr.isen.java2.model.Person;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PersonDAO {
-    public List<Person> findAll() throws SQLException {
+
+    public List<Person> findAll() {
         String sql = "SELECT * FROM person";
         List<Person> persons = new ArrayList<>();
 
         try (Connection conn = DatabaseManager.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Person p = new Person();
-                p.setIdperson(rs.getInt("idperson"));
-                p.setLastName(rs.getString("lastname"));
-                p.setFirstName(rs.getString("firstname"));
-                p.setNickname(rs.getString("nickname"));
-                p.setPhoneNumber(rs.getString("phone_number"));
-                p.setAddress(rs.getString("address"));
-                p.setEmailAddress(rs.getString("email_address"));
-                p.setBirthDate(LocalDate.parse(rs.getString("birth_date")));
-                persons.add(p);
+                persons.add(mapResultSetToPerson(rs));
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching persons", e);
         }
+
         return persons;
     }
-    
+
+
+    private Person mapResultSetToPerson(ResultSet rs) throws SQLException {
+        Person p = new Person();
+
+        p.setIdperson(rs.getInt("idperson"));
+        p.setLastName(rs.getString("lastname"));
+        p.setFirstName(rs.getString("firstname"));
+        p.setNickname(rs.getString("nickname"));
+        p.setPhoneNumber(rs.getString("phone_number"));
+        p.setAddress(rs.getString("address"));
+        p.setEmailAddress(rs.getString("email_address"));
+
+        p.setBirthDate(parseNullableLocalDate(rs.getString("birth_date")));
+
+        return p;
+    }
+
+    private LocalDate parseNullableLocalDate(String dateStr) {
+        if (dateStr == null || dateStr.isBlank()) {
+            return null;
+        }
+        return LocalDate.parse(dateStr);
+    }
 }

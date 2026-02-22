@@ -3,18 +3,16 @@ package fr.isen.java2.service;
 import fr.isen.java2.dao.PersonDAO;
 import fr.isen.java2.model.Person;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class PersonService {
     private final PersonDAO personDAO = new PersonDAO();
 
     public List<Person> getAllPersons() {
-        try
-        {
+        try {
             return personDAO.findAll();
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to load persons", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Error fetching persons", e);
         }
     }
 
