@@ -87,7 +87,7 @@ public class PersonFormController {
         if (editingMode) {
             personService.updatePerson(person);
         } else {
-//            personService.createPerson(person);
+            personService.createPerson(person);
         }
 
         App.showView("MainView");

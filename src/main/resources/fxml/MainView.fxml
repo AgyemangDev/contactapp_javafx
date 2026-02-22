@@ -40,7 +40,7 @@
                     <TableColumn fx:id="emailColumn" minWidth="150" text="Email" />
                     <TableColumn fx:id="addressColumn" minWidth="150" text="Address" />
                     <TableColumn fx:id="birthDateColumn" prefWidth="75.0" text="Birthdate" />
-                    <TableColumn fx:id="actionColumn" text="Actions"/>
+                    <TableColumn fx:id="actionColumn" text="Actions" />
                 </columns>
             </TableView>
         </VBox>
@@ -51,7 +51,7 @@
         <HBox alignment="CENTER_RIGHT" spacing="12" styleClass="bottom-action-bar">
             <Label fx:id="contactCountLabel" styleClass="contact-count" text="Total Contacts: 0" />
             <Region HBox.hgrow="ALWAYS" />
-            <Button styleClass="button-success" text="➕ Add Contact" />
+            <Button onAction="#handleAdd" styleClass="button-success" text="➕ Add Contact" />
         </HBox>
     </bottom>
 </BorderPane>
