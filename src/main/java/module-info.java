@@ -8,5 +8,6 @@ module fr.isen.java2 {
         exports fr.isen.java2;
 
         opens fr.isen.java2 to javafx.fxml;
+        opens fr.isen.java2.model to javafx.base;
         opens fr.isen.java2.view to javafx.fxml;
 }

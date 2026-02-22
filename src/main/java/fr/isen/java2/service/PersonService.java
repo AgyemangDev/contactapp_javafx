@@ -9,8 +9,13 @@ import java.util.List;
 public class PersonService {
     private final PersonDAO personDAO = new PersonDAO();
 
-    public List<Person> getAllPersons() throws SQLException {
-        return personDAO.findAll();
+    public List<Person> getAllPersons() {
+        try
+        {
+            return personDAO.findAll();
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to load persons", e);
+        }
     }
 
 //    public void addPerson(Person p) throws SQLException {

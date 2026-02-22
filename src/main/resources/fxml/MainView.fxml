@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fr.isen.java2.view.MainController"
-            stylesheets="@../css/main-view.css"
-            styleClass="main-view-container">
+<BorderPane styleClass="main-view-container" stylesheets="@../css/main-view.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.isen.java2.view.MainController">
 
     <!-- Top toolbar -->
     <top>
         <ToolBar styleClass="main-toolbar">
-            <Label text="📇 Contact Manager" styleClass="app-title"/>
-            <Region HBox.hgrow="ALWAYS"/>
-            <TextField fx:id="searchField" promptText="🔍 Search contacts..."/>
+            <Label styleClass="app-title" text="📇 Contact Manager" />
+            <Region HBox.hgrow="ALWAYS" />
+            <TextField fx:id="searchField" promptText="🔍 Search contacts..." />
         </ToolBar>
     </top>
 
@@ -22,20 +27,19 @@
     <center>
         <VBox VBox.vgrow="ALWAYS">
             <padding>
-                <Insets top="16" right="16" bottom="16" left="16"/>
+                <Insets bottom="16" left="16" right="16" top="16" />
             </padding>
             
-            <TableView fx:id="personTable"
-           styleClass="contacts-table"
-           VBox.vgrow="ALWAYS">
+            <TableView fx:id="personTable" styleClass="contacts-table" VBox.vgrow="ALWAYS">
                 <columns>
-                    <TableColumn fx:id="idColumn" text="ID" minWidth="50" prefWidth="60" maxWidth="80"/>
-                    <TableColumn fx:id="firstNameColumn" text="First Name" minWidth="100"/>
-                    <TableColumn fx:id="lastNameColumn" text="Last Name" minWidth="100"/>
-                    <TableColumn fx:id="nicknameColumn" text="Nickname" minWidth="80"/>
-                    <TableColumn fx:id="phoneColumn" text="Phone" minWidth="120"/>
-                    <TableColumn fx:id="emailColumn" text="Email" minWidth="150"/>
-                    <TableColumn fx:id="addressColumn" text="Address" minWidth="150"/>
+                    <TableColumn fx:id="idColumn" maxWidth="80" minWidth="50" prefWidth="60" text="ID" />
+                    <TableColumn fx:id="lastNameColumn" minWidth="100" text="Last Name" />
+                    <TableColumn fx:id="firstNameColumn" minWidth="100" text="First Name" />
+                    <TableColumn fx:id="nicknameColumn" minWidth="80" text="Nickname" />
+                    <TableColumn fx:id="phoneColumn" minWidth="120" text="Phone" />
+                    <TableColumn fx:id="emailColumn" minWidth="150" text="Email" />
+                    <TableColumn fx:id="addressColumn" minWidth="150" text="Address" />
+                    <TableColumn fx:id="birthDateColumn" prefWidth="75.0" text="Birthdate" />
                 </columns>
             </TableView>
         </VBox>
@@ -43,10 +47,10 @@
 
     <!-- Bottom action bar -->
     <bottom>
-        <HBox spacing="12" alignment="CENTER_RIGHT" styleClass="bottom-action-bar">
-            <Label text="Total Contacts: 0" fx:id="contactCountLabel" styleClass="contact-count"/>
-            <Region HBox.hgrow="ALWAYS"/>
-            <Button fx:id="addButton" text="➕ Add Contact" onAction="#handleAdd" styleClass="button-success"/>
+        <HBox alignment="CENTER_RIGHT" spacing="12" styleClass="bottom-action-bar">
+            <Label fx:id="contactCountLabel" styleClass="contact-count" text="Total Contacts: 0" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button styleClass="button-success" text="➕ Add Contact" />
         </HBox>
     </bottom>
 </BorderPane>

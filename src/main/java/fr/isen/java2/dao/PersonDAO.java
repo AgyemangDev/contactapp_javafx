@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +26,10 @@ public class PersonDAO {
                 p.setLastName(rs.getString("lastname"));
                 p.setFirstName(rs.getString("firstname"));
                 p.setNickname(rs.getString("nickname"));
-                p.setPhoneNumber(rs.getString("phonenumber"));
+                p.setPhoneNumber(rs.getString("phone_number"));
                 p.setAddress(rs.getString("address"));
-                p.setEmailAddress(rs.getString("emailaddress"));
-                p.setBirthDate(rs.getDate("birthdate").toLocalDate());
+                p.setEmailAddress(rs.getString("email_address"));
+                p.setBirthDate(LocalDate.parse(rs.getString("birth_date")));
                 persons.add(p);
             }
         }
