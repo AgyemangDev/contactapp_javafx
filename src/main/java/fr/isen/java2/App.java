@@ -1,39 +1,48 @@
 package fr.isen.java2;
 
+import fr.isen.java2.db.DatabaseManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.transform.Scale;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-/**
- * Hello world!
- *
- */
-public class App extends Application
-{
+import java.io.IOException;
+
+public class App extends Application {
+    private static Scene scene;
+    private static BorderPane mainlayout;
 
     @Override
-    public void init() throws Exception{
-        System.out.println("Init called. Database setup can go here");
+    public void init() {
+        DatabaseManager.initDatabase();
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),800,600);
+        mainlayout = loadFXML("MainView");
+        scene = new Scene(mainlayout, 640, 480);
 
         stage.setTitle("Contact App");
         stage.setScene(scene);
         stage.show();
     }
 
-    @Override
-    public void stop() throws Exception {
-        System.out.println("Stop called - System close resources go here");
+    private static <T> T loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml"));
+        return fxmlLoader.load();
     }
-    public static void main( String[] args )
-    {
+
+
+    public static void main(String[] args) {
         launch();
+    }
+
+    public static void showView(String rootElement) {
+        try {
+            mainlayout.setCenter(loadFXML(rootElement));
+        } catch (IOException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 }

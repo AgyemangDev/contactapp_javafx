@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fr.isen.java2.controller.PersonFormController"
+            fx:controller="fr.isen.java2.view.PersonFormController"
             stylesheets="@../css/person-form.css"
             styleClass="form-container"
             minWidth="700" minHeight="550" maxHeight="650">

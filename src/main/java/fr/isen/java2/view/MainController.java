@@ -1,4 +1,4 @@
-package fr.isen.java2.controller;
+package fr.isen.java2.view;
 
 import fr.isen.java2.model.Person;
 import javafx.fxml.FXML;
@@ -14,7 +14,6 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class MainController {
 

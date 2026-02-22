@@ -1,4 +1,4 @@
-package fr.isen.java2.controller;
+package fr.isen.java2.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
