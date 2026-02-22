@@ -1,5 +1,6 @@
 package fr.isen.java2.db;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,24 +14,31 @@ public class DatabaseManager {
     }
 
     public static void initDatabase() {
+        System.out.println("Initializing database...");
+
         try (Connection conn = getConnection();
-             Statement stmt = conn.createStatement()) {
+             Statement stmt = conn.createStatement();
+             InputStream is = DatabaseManager.class.getResourceAsStream("/sql/schema.sql")) {
 
-            stmt.execute("""
-                CREATE TABLE IF NOT EXISTS person (
-                    idperson INTEGER PRIMARY KEY AUTOINCREMENT,
-                    lastname VARCHAR(45) NOT NULL,
-                    firstname VARCHAR(45) NOT NULL,
-                    nickname VARCHAR(45) NOT NULL,
-                    phone_number VARCHAR(15),
-                    address VARCHAR(200),
-                    email_address VARCHAR(150),
-                    birth_date DATE
-                );
-            """);
+            if (is == null) {
+                throw new RuntimeException("schema.sql not found in resources");
+            }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+            String sql = new String(is.readAllBytes());
+
+            String[] statements = sql.split(";");
+
+            for (String s : statements) {
+                s = s.trim();
+                if (!s.isEmpty()) {
+                    stmt.execute(s);
+                }
+            }
+
+            System.out.println("Database initialized successfully!");
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to initialize database", e);
         }
     }
     
