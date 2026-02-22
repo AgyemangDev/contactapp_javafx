@@ -113,9 +113,9 @@ public class MainController {
     }
 
     private void handleDelete(Person person) {
-        System.out.println("Delete person: " + person.getIdperson());
-//        personService.deletePerson(person.getIdperson());
-//        refreshTable();
+        personService.deletePerson(person.getIdperson());
+        populateList();
+        refreshList();
     }
 
     private void handleUpdate(Person person) {

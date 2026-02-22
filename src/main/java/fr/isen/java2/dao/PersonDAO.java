@@ -29,6 +29,20 @@ public class PersonDAO {
         return persons;
     }
 
+    public void deletePerson(int id) {
+        String sql = "DELETE FROM person WHERE idperson = ?";
+
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting person with id " + id, e);
+        }
+    }
+
 
     private Person mapResultSetToPerson(ResultSet rs) throws SQLException {
         Person p = new Person();

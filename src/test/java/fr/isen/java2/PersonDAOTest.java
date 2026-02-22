@@ -57,17 +57,19 @@ public class PersonDAOTest {
         assertEquals("Taylor", persons.get(2).getLastName());
 
     }
+    @Test
+    public void shouldDeletePerson() {
+        //act
+        personDAO.deletePerson(2);
 
-//    @Test
-//    void shouldInsertPerson() throws SQLException {
-//        Person p = new Person();
-//        p.setFirstname("John");
-//        p.setLastname("Doe");
-//        p.setNickname("JD");
-//
-//        personDAO.insert(p);
-//
-//        List<Person> persons = personDAO.findAll();
-//        assertFalse(persons.isEmpty());
-//    }
+        //assert
+        var persons = personDAO.findAll();
+        assert (!persons.isEmpty());
+        assertEquals(2, persons.size());
+        assertEquals(1, persons.get(0).getIdperson());
+        assertEquals("Smith", persons.get(0).getLastName());
+        assertEquals(3, persons.get(1).getIdperson());
+        assertEquals("Taylor", persons.get(1).getLastName());
+
+    }
 }

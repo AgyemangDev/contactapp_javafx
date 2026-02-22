@@ -24,7 +24,14 @@ public class PersonService {
 //        personDAO.update(p);
 //    }
 //
-//    public void deletePerson(int id) throws SQLException {
-//        personDAO.delete(id);
-//    }
+    public void deletePerson(int id)  {
+        try {
+            if(id <= 0) {
+                throw new IllegalArgumentException("Person id must be positive");
+            }
+            personDAO.deletePerson(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Error deleting person with id " + id, e);
+        }
+    }
 }
