@@ -1,36 +1,52 @@
 package fr.isen.java2.view;
 
+import fr.isen.java2.App;
+import fr.isen.java2.model.Person;
+import fr.isen.java2.service.PersonService;
+import fr.isen.java2.util.PersonSession;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import fr.isen.java2.model.Person;
+import javafx.stage.FileChooser;
 
 import java.io.File;
 
 public class PersonFormController {
 
+    private final PersonService personService = new PersonService();
+
     @FXML private Label formTitle;
-    @FXML private TextField firstNameField, lastNameField, nicknameField, phoneField, emailField, addressField;
+
+    @FXML private TextField firstNameField;
+    @FXML private TextField lastNameField;
+    @FXML private TextField nicknameField;
+    @FXML private TextField phoneField;
+    @FXML private TextField emailField;
+    @FXML private TextField addressField;
+
     @FXML private DatePicker birthDatePicker;
     @FXML private ImageView photoView;
-    @FXML private Button saveButton;
 
-    private Stage dialogStage;
-    private Person person; // Person being edited or new
-    private boolean saved = false;
     private Image selectedImage;
 
-    public void setDialogStage(Stage stage) {
-        this.dialogStage = stage;
+    private Person person;
+    private boolean editingMode;
+
+    @FXML
+    public void initialize() {
+        loadEditingPerson();
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
-        if(person != null) {
+    private void loadEditingPerson() {
+
+        person = PersonSession.editingPerson;
+        editingMode = person != null;
+
+        if (editingMode) {
+
             formTitle.setText("Edit Person");
+
             firstNameField.setText(person.getFirstName());
             lastNameField.setText(person.getLastName());
             nicknameField.setText(person.getNickname());
@@ -38,41 +54,24 @@ public class PersonFormController {
             emailField.setText(person.getEmailAddress());
             addressField.setText(person.getAddress());
             birthDatePicker.setValue(person.getBirthDate());
-            
-            if(person.getPhoto() != null) {
+
+            if (person.getPhoto() != null) {
                 photoView.setImage(person.getPhoto());
                 selectedImage = person.getPhoto();
             }
+
         } else {
+
             formTitle.setText("Add Person");
+            person = new Person();
         }
-    }
-
-    public boolean isSaved() { 
-        return saved; 
-    }
-
-    public Person getPerson() {
-        return person;
     }
 
     @FXML
     private void handleSave() {
-        // Basic validation
-        if(firstNameField.getText() == null || firstNameField.getText().trim().isEmpty()) {
-            showAlert("Validation Error", "First name is required!");
-            return;
-        }
-        if(lastNameField.getText() == null || lastNameField.getText().trim().isEmpty()) {
-            showAlert("Validation Error", "Last name is required!");
-            return;
-        }
 
-        // Create or update person
-        if(person == null) {
-            person = new Person();
-        }
-        
+        if (!validateForm()) return;
+
         person.setFirstName(firstNameField.getText().trim());
         person.setLastName(lastNameField.getText().trim());
         person.setNickname(nicknameField.getText().trim());
@@ -80,47 +79,65 @@ public class PersonFormController {
         person.setEmailAddress(emailField.getText().trim());
         person.setAddress(addressField.getText().trim());
         person.setBirthDate(birthDatePicker.getValue());
-        
-        // Set photo if one was selected
-        if(selectedImage != null) {
+
+        if (selectedImage != null) {
             person.setPhoto(selectedImage);
         }
-        
-        saved = true;
-        dialogStage.close();
+
+        if (editingMode) {
+            personService.updatePerson(person);
+        } else {
+//            personService.createPerson(person);
+        }
+
+        App.showView("MainView");
+    }
+
+    private boolean validateForm() {
+
+        if (firstNameField.getText().isBlank()) {
+            alert("First name required");
+            return false;
+        }
+
+        if (lastNameField.getText().isBlank()) {
+            alert("Last name required");
+            return false;
+        }
+        if(nicknameField.getText().isBlank())
+        {
+            alert("Nickname required");
+            return false;
+        }
+
+        return true;
     }
 
     @FXML
     private void handleCancel() {
-        saved = false;
-        dialogStage.close();
+        App.showView("MainView");
     }
 
     @FXML
     private void handleSelectImage() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Profile Photo");
-        fileChooser.getExtensionFilters().add(
-            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+
+        FileChooser chooser = new FileChooser();
+        chooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter(
+                        "Images",
+                        "*.png", "*.jpg", "*.jpeg"
+                )
         );
-        
-        File file = fileChooser.showOpenDialog(dialogStage);
-        if(file != null) {
-            try {
-                Image img = new Image(file.toURI().toString());
-                photoView.setImage(img);
-                selectedImage = img;
-            } catch (Exception e) {
-                showAlert("Image Error", "Failed to load image: " + e.getMessage());
-            }
+
+        File file = chooser.showOpenDialog(null);
+
+        if (file != null) {
+            selectedImage = new Image(file.toURI().toString());
+            photoView.setImage(selectedImage);
         }
     }
 
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+    private void alert(String msg) {
+        new Alert(Alert.AlertType.WARNING, msg).showAndWait();
     }
 }

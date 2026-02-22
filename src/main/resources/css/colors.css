@@ -30,7 +30,7 @@
     -fx-text-on-primary: #FFFFFF;      /* White on Blue */
     
     /* Border & Outline */
-    -fx-border-color: #BDBDBD;
+    -fx-border-default: #BDBDBD;
     -fx-outline: #9E9E9E;
     
     /* Shadows */

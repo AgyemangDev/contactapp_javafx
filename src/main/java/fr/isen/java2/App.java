@@ -1,6 +1,8 @@
 package fr.isen.java2;
 
 import fr.isen.java2.db.DatabaseManager;
+import fr.isen.java2.util.PersonSession;
+import fr.isen.java2.view.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -38,11 +40,17 @@ public class App extends Application {
         launch();
     }
 
-    public static void showView(String rootElement) {
+    public static void showView(String viewName) {
         try {
-            mainlayout.setCenter(loadFXML(rootElement));
+            if ("MainView".equals(viewName)) {
+                mainlayout = loadFXML("MainView");
+                scene.setRoot(mainlayout);
+            } else {
+                mainlayout.setCenter(loadFXML(viewName));
+            }
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
     }
+
 }
