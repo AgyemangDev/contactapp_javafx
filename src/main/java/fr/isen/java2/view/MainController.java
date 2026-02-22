@@ -3,10 +3,7 @@ package fr.isen.java2.view;
 import fr.isen.java2.model.Person;
 import fr.isen.java2.service.PersonService;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 
@@ -37,10 +34,13 @@ public class MainController {
 
     @FXML
     private TableColumn<Person, Void> actionColumn;
+    @FXML
+    private Label contactCountLabel;
 
     private void refreshList() {
         personTable.refresh();
         personTable.getSelectionModel().clearSelection();
+        updateContactCount();
     }
 
     private void populateList() {
@@ -120,6 +120,11 @@ public class MainController {
 
     private void handleUpdate(Person person) {
         System.out.println("Update person: " + person.getIdperson());
+    }
+
+    private void updateContactCount() {
+        int count = personTable.getItems().size();
+        contactCountLabel.setText("Total Contacts: " + count);
     }
 
 

@@ -7,12 +7,13 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class PersonDAOTest {
-    private PersonDAO personDAO = new PersonDAO();
+    private final PersonDAO personDAO = new PersonDAO();
 
     @BeforeEach
     void initDb() throws Exception {
@@ -57,6 +58,7 @@ public class PersonDAOTest {
         assertEquals("Taylor", persons.get(2).getLastName());
 
     }
+
     @Test
     public void shouldDeletePerson() {
         //act
@@ -71,5 +73,39 @@ public class PersonDAOTest {
         assertEquals(3, persons.get(1).getIdperson());
         assertEquals("Taylor", persons.get(1).getLastName());
 
+    }
+
+    @Test
+    public void shouldUpdatePerson() {
+
+        // Arrange
+        var persons = personDAO.findAll();
+        assert (!persons.isEmpty());
+
+        var personToUpdate = persons.getFirst();
+
+        // Modify data
+        personToUpdate.setLastName("UpdatedName");
+        personToUpdate.setFirstName("UpdatedFirstName");
+        personToUpdate.setNickname("UPD");
+        personToUpdate.setBirthDate(LocalDate.of(1990, 1, 1));
+
+        // Act
+        personDAO.updatePerson(personToUpdate);
+
+        // Assert
+        var updatedList = personDAO.findAll();
+
+        assertEquals(3, updatedList.size());
+
+        var updatedPerson = updatedList.getFirst();
+
+        assertEquals("UpdatedName", updatedPerson.getLastName());
+        assertEquals("UpdatedFirstName", updatedPerson.getFirstName());
+        assertEquals("UPD", updatedPerson.getNickname());
+        assertEquals("1111111111", updatedPerson.getPhoneNumber());
+        assertEquals("Street 1", updatedPerson.getAddress());
+        assertEquals("john1@mail.com", updatedPerson.getEmailAddress());
+        assertEquals(LocalDate.of(1990, 1, 1), updatedPerson.getBirthDate());
     }
 }

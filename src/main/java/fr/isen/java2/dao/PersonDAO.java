@@ -42,6 +42,52 @@ public class PersonDAO {
             throw new RuntimeException("Error deleting person with id " + id, e);
         }
     }
+    public void updatePerson(Person person) {
+
+        String sql = """
+            UPDATE person
+            SET lastname = ?,
+                firstname = ?,
+                nickname = ?,
+                phone_number = ?,
+                address = ?,
+                email_address = ?,
+                birth_date = ?
+            WHERE idperson = ?
+            """;
+
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            bindPersonParameters(ps, person);
+            ps.setInt(8, person.getIdperson());
+
+            int affectedRows = ps.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new RuntimeException("Update failed: person not found");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating person", e);
+        }
+    }
+
+    private void bindPersonParameters(PreparedStatement ps, Person person) throws SQLException {
+
+        ps.setString(1, person.getLastName());
+        ps.setString(2, person.getFirstName());
+        ps.setString(3, person.getNickname());
+        ps.setString(4, person.getPhoneNumber());
+        ps.setString(5, person.getAddress());
+        ps.setString(6, person.getEmailAddress());
+
+        if (person.getBirthDate() != null) {
+            ps.setString(7, person.getBirthDate().toString());
+        } else {
+            ps.setNull(7, Types.VARCHAR);
+        }
+    }
 
 
     private Person mapResultSetToPerson(ResultSet rs) throws SQLException {

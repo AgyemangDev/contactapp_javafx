@@ -9,29 +9,20 @@ public class PersonService {
     private final PersonDAO personDAO = new PersonDAO();
 
     public List<Person> getAllPersons() {
-        try {
-            return personDAO.findAll();
-        } catch (Exception e) {
-            throw new RuntimeException("Error fetching persons", e);
-        }
+        return personDAO.findAll();
     }
 
-//    public void addPerson(Person p) throws SQLException {
-//        personDAO.insert(p);
-//    }
-//
-//    public void updatePerson(Person p) throws SQLException {
-//        personDAO.update(p);
-//    }
-//
-    public void deletePerson(int id)  {
-        try {
-            if(id <= 0) {
-                throw new IllegalArgumentException("Person id must be positive");
-            }
-            personDAO.deletePerson(id);
-        } catch (Exception e) {
-            throw new RuntimeException("Error deleting person with id " + id, e);
+    public void updatePerson(Person person) {
+        if (person == null || person.getIdperson() <= 0) {
+            throw new IllegalArgumentException("Invalid person for update");
         }
+        personDAO.updatePerson(person);
+    }
+
+    public void deletePerson(int id) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("Person id must be positive");
+        }
+        personDAO.deletePerson(id);
     }
 }
