@@ -3,9 +3,12 @@ package fr.isen.java2.view;
 import fr.isen.java2.model.Person;
 import fr.isen.java2.service.PersonService;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 
 import java.util.Date;
 
@@ -32,6 +35,9 @@ public class MainController {
     private TableColumn<Person, String> addressColumn;
     private final PersonService personService = new PersonService();
 
+    @FXML
+    private TableColumn<Person, Void> actionColumn;
+
     private void refreshList() {
         personTable.refresh();
         personTable.getSelectionModel().clearSelection();
@@ -42,7 +48,8 @@ public class MainController {
         personTable.getItems().setAll(personService.getAllPersons());
         refreshList();
     }
-    private void setupTableColumns(){
+
+    private void setupTableColumns() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("idperson"));
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -55,60 +62,66 @@ public class MainController {
 
     @FXML
     public void initialize() {
-
         setupTableColumns();
         populateList();
-
-
-
-//        // Add Actions column (Edit/Delete buttons per row)
-//        TableColumn<Person, Void> actionCol = new TableColumn<>("Actions");
-//        actionCol.setPrefWidth(150);
-//
-//        Callback<TableColumn<Person, Void>, TableCell<Person, Void>> cellFactory = new Callback<>() {
-//            @Override
-//            public TableCell<Person, Void> call(final TableColumn<Person, Void> param) {
-//                return new TableCell<>() {
-//
-//                    private final Button btnEdit = new Button("Edit");
-//                    private final Button btnDelete = new Button("Delete");
-//                    private final HBox pane = new HBox(5, btnEdit, btnDelete);
-//
-//                    {
-//                        btnEdit.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
-//                        btnDelete.setStyle("-fx-background-color: #F44336; -fx-text-fill: white;");
-//
-//                        // Open modal to edit person
-//                        btnEdit.setOnAction(e -> {
-//                            Person person = getTableView().getItems().get(getIndex());
-//                            showPersonForm(person);
-//                        });
-//
-//                        // Delete logic
-//                        btnDelete.setOnAction(e -> {
-//                            Person person = getTableView().getItems().get(getIndex());
-//                            System.out.println("Delete: " + person.getFirstName());
-//                            // TODO: Delete from DB and refresh table
-//                            getTableView().getItems().remove(person);
-//                        });
-//                    }
-//
-//                    @Override
-//                    protected void updateItem(Void item, boolean empty) {
-//                        super.updateItem(item, empty);
-//                        if (empty) {
-//                            setGraphic(null);
-//                        } else {
-//                            setGraphic(pane);
-//                        }
-//                    }
-//                };
-//            }
-//        };
-//
-//        actionCol.setCellFactory(cellFactory);
-//        personTable.getColumns().add(actionCol);
+        addActionButtonsToTable();
     }
+
+    private void addActionButtonsToTable() {
+
+        actionColumn.setCellFactory(param -> new TableCell<>() {
+
+            private final Button updateButton = createEditButton();
+            private final Button deleteButton = createDeleteButton();
+            private final HBox container = new HBox(8, updateButton, deleteButton);
+
+            {
+                updateButton.setOnAction(event -> {
+                    Person person = getTableView().getItems().get(getIndex());
+                    handleUpdate(person);
+                });
+
+                deleteButton.setOnAction(event -> {
+                    Person person = getTableView().getItems().get(getIndex());
+                    handleDelete(person);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(container);
+                }
+            }
+        });
+    }
+
+    private Button createEditButton() {
+        Button btn = new Button("Edit");
+        btn.getStyleClass().add("btn-edit");
+        return btn;
+    }
+
+    private Button createDeleteButton() {
+        Button btn = new Button("Delete");
+        btn.getStyleClass().add("btn-delete");
+        return btn;
+    }
+
+    private void handleDelete(Person person) {
+        System.out.println("Delete person: " + person.getIdperson());
+//        personService.deletePerson(person.getIdperson());
+//        refreshTable();
+    }
+
+    private void handleUpdate(Person person) {
+        System.out.println("Update person: " + person.getIdperson());
+    }
+
 
     /**
      * Show the modal for adding/editing a Person

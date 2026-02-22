@@ -40,6 +40,7 @@
                     <TableColumn fx:id="emailColumn" minWidth="150" text="Email" />
                     <TableColumn fx:id="addressColumn" minWidth="150" text="Address" />
                     <TableColumn fx:id="birthDateColumn" prefWidth="75.0" text="Birthdate" />
+                    <TableColumn fx:id="actionColumn" text="Actions"/>
                 </columns>
             </TableView>
         </VBox>
