@@ -15,13 +15,15 @@
 <BorderPane styleClass="main-view-container" stylesheets="@../css/main-view.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.isen.java2.view.MainController">
 
     <!-- Top toolbar -->
-    <top>
-        <ToolBar styleClass="main-toolbar">
-            <Label styleClass="app-title" text="📇 Contact Manager" />
-            <Region HBox.hgrow="ALWAYS" />
-            <TextField fx:id="searchField" promptText="🔍 Search contacts..." />
-        </ToolBar>
-    </top>
+         <top>
+    <HBox styleClass="main-toolbar" spacing="16" alignment="CENTER_LEFT">
+        <Label styleClass="app-title" text="📇 Contact Manager"/>
+        <Button text="Home" onAction="#handleHome" styleClass="nav-btn"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <TextField fx:id="searchField" promptText="🔍 Search contacts..."  styleClass="search-field"/>
+    </HBox>
+</top>
+
 
     <!-- Center table - FULLY RESPONSIVE -->
     <center>
