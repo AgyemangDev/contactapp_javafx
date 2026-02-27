@@ -13,7 +13,7 @@ public class Person {
     private String address;
     private String emailAddress;
     private LocalDate birthDate;
-    private Image photo;
+    private String photoPath;
 
     //Constructor
     public Person() {
@@ -53,11 +53,11 @@ public class Person {
         return birthDate;
     }
 
-    public Image getPhoto() {
-        return photo;
+    public String getPhotoPath() {
+        return photoPath;
     }
 
-    // Setters
+// Setters
 
     public void setIdperson(int idperson) {
         this.idperson = idperson;
@@ -91,7 +91,7 @@ public class Person {
         this.birthDate = birthDate;
     }
 
-    public void setPhoto(Image photo) {
-        this.photo = photo;
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
     }
 }

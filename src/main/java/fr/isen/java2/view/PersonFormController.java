@@ -16,19 +16,28 @@ public class PersonFormController {
 
     private final PersonService personService = new PersonService();
 
-    @FXML private Label formTitle;
+    @FXML
+    private Label formTitle;
 
-    @FXML private TextField firstNameField;
-    @FXML private TextField lastNameField;
-    @FXML private TextField nicknameField;
-    @FXML private TextField phoneField;
-    @FXML private TextField emailField;
-    @FXML private TextField addressField;
+    @FXML
+    private TextField firstNameField;
+    @FXML
+    private TextField lastNameField;
+    @FXML
+    private TextField nicknameField;
+    @FXML
+    private TextField phoneField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private TextField addressField;
 
-    @FXML private DatePicker birthDatePicker;
-    @FXML private ImageView photoView;
+    @FXML
+    private DatePicker birthDatePicker;
+    @FXML
+    private ImageView photoView;
 
-    private Image selectedImage;
+    private String selectedPhotoPath;
 
     private Person person;
     private boolean editingMode;
@@ -55,15 +64,41 @@ public class PersonFormController {
             addressField.setText(person.getAddress());
             birthDatePicker.setValue(person.getBirthDate());
 
-            if (person.getPhoto() != null) {
-                photoView.setImage(person.getPhoto());
-                selectedImage = person.getPhoto();
+            selectedPhotoPath = person.getPhotoPath();
+
+            if (selectedPhotoPath != null && !selectedPhotoPath.isBlank()) {
+
+                try {
+
+                    Image image;
+
+                    if (selectedPhotoPath.startsWith("file:") ||
+                            selectedPhotoPath.startsWith("http")) {
+
+                        image = new Image(selectedPhotoPath);
+
+                    } else {
+
+                        var resource = getClass().getResource("/" + selectedPhotoPath);
+
+                        if (resource == null) {
+                            throw new IllegalArgumentException("Image resource not found");
+                        }
+
+                        image = new Image(resource.toExternalForm());
+                    }
+
+                    photoView.setImage(image);
+
+                } catch (Exception e) {
+                    photoView.setImage(null);
+                }
             }
 
         } else {
-
             formTitle.setText("Add Person");
             person = new Person();
+            selectedPhotoPath = null;
         }
     }
 
@@ -80,9 +115,7 @@ public class PersonFormController {
         person.setAddress(addressField.getText().trim());
         person.setBirthDate(birthDatePicker.getValue());
 
-        if (selectedImage != null) {
-            person.setPhoto(selectedImage);
-        }
+        person.setPhotoPath(selectedPhotoPath);
 
         if (editingMode) {
             personService.updatePerson(person);
@@ -104,8 +137,8 @@ public class PersonFormController {
             alert("Last name required");
             return false;
         }
-        if(nicknameField.getText().isBlank())
-        {
+
+        if (nicknameField.getText().isBlank()) {
             alert("Nickname required");
             return false;
         }
@@ -131,15 +164,18 @@ public class PersonFormController {
 
         File file = chooser.showOpenDialog(null);
 
-        if (file != null) {
-            selectedImage = new Image(file.toURI().toString());
-            photoView.setImage(selectedImage);
-        }
+        if (file == null) return;
+
+        selectedPhotoPath = file.toURI().toString();
+
+        Image image = new Image(selectedPhotoPath);
+        photoView.setImage(image);
     }
 
     private void alert(String msg) {
         new Alert(Alert.AlertType.WARNING, msg).showAndWait();
     }
+
     @FXML
     private void handleBack() {
         App.showView("MainView");

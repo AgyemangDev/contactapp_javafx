@@ -19,8 +19,9 @@
     <HBox styleClass="main-toolbar" spacing="16" alignment="CENTER_LEFT">
 
 
-        <Label styleClass="app-title" text="📇 Contact Manager"/>
-        <Button text="Home" onAction="#handleHome" styleClass="nav-btn"/>
+        <Label styleClass="app-title"
+               text="📇 Contact Manager"
+               onMouseClicked="#handleHome"/>
         <Region HBox.hgrow="ALWAYS"/>
         <TextField fx:id="searchField" promptText="🔍 Search contacts..."  styleClass="search-field"/>
 
@@ -39,6 +40,7 @@
             <TableView fx:id="personTable" styleClass="contacts-table" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn fx:id="idColumn" maxWidth="80" minWidth="50" prefWidth="60" text="ID" />
+                    <TableColumn fx:id="photoColumn" text="Photo" prefWidth="90"/>
                     <TableColumn fx:id="lastNameColumn" minWidth="100" text="Last Name" />
                     <TableColumn fx:id="firstNameColumn" minWidth="100" text="First Name" />
                     <TableColumn fx:id="nicknameColumn" minWidth="80" text="Nickname" />

@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -18,27 +17,39 @@ public class PersonDAOTest {
 
     @BeforeEach
     void initDb() throws Exception {
+
         Connection connection = DatabaseManager.getConnection();
         Statement stmt = connection.createStatement();
+
         stmt.executeUpdate(
-                "CREATE TABLE IF NOT EXISTS person (\n" +
-                        "                                      idperson INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +
-                        "                                      lastname VARCHAR(45) NOT NULL,\n" +
-                        "    firstname VARCHAR(45) NOT NULL,\n" +
-                        "    nickname VARCHAR(45) NOT NULL,\n" +
-                        "    phone_number VARCHAR(15) NULL,\n" +
-                        "    address VARCHAR(200) NULL,\n" +
-                        "    email_address VARCHAR(150) NULL,\n" +
-                        "    birth_date DATE NULL);");
+                """
+                        CREATE TABLE IF NOT EXISTS person (
+                            idperson INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                            lastname VARCHAR(45) NOT NULL,
+                            firstname VARCHAR(45) NOT NULL,
+                            nickname VARCHAR(45) NOT NULL,
+                            phone_number VARCHAR(15) NULL,
+                            address VARCHAR(200) NULL,
+                            email_address VARCHAR(150) NULL,
+                            birth_date DATE NULL,
+                            photo_path VARCHAR(255) NULL
+                        );
+                        """
+        );
+
         stmt.executeUpdate("DELETE FROM person");
         stmt.executeUpdate("DELETE FROM sqlite_sequence WHERE name='person'");
+
         stmt.executeUpdate("""
-                INSERT INTO person (lastname, firstname, nickname, phone_number, address, email_address, birth_date)
+                INSERT INTO person
+                (lastname, firstname, nickname, phone_number, address, email_address, birth_date, photo_path)
                 VALUES
-                ('Smith', 'John', 'JS', '1111111111', 'Street 1', 'john1@mail.com', '2000-01-01'),
-                ('Brown', 'Alice', 'AB', '2222222222', 'Street 2', 'alice@mail.com', '1999-02-02'),
-                ('Taylor', 'Robert', 'RT', '3333333333', 'Street 3', 'robert@mail.com', '1998-03-03')
-                """);
+                ('Smith', 'John', 'JS', '1111111111', 'Street 1', 'john1@mail.com', '2000-01-01', NULL),
+                ('Brown', 'Alice', 'AB', '2222222222', 'Street 2', 'alice@mail.com', '1999-02-02', NULL),
+                ('Taylor', 'Robert', 'RT', '3333333333', 'Street 3', 'robert@mail.com', '1998-03-03', NULL);
+                """
+        );
+
         stmt.close();
         connection.close();
     }
@@ -108,7 +119,9 @@ public class PersonDAOTest {
         assertEquals("Street 1", updatedPerson.getAddress());
         assertEquals("john1@mail.com", updatedPerson.getEmailAddress());
         assertEquals(LocalDate.of(1990, 1, 1), updatedPerson.getBirthDate());
+        assertNull(updatedPerson.getPhotoPath());
     }
+
     @Test
     void shouldFailUpdateWhenFirstnameIsNull() {
         var person = personDAO.findAll().getFirst();
@@ -118,6 +131,7 @@ public class PersonDAOTest {
             personDAO.updatePerson(person);
         });
     }
+
     @Test
     void shouldCreatePerson() {
 
@@ -149,6 +163,7 @@ public class PersonDAOTest {
         assertEquals("Street 4", inserted.getAddress());
         assertEquals("paul@mail.com", inserted.getEmailAddress());
         assertEquals(LocalDate.of(1995, 5, 5), inserted.getBirthDate());
+        assertNull(inserted.getPhotoPath());
     }
 
     @Test

@@ -81,6 +81,9 @@
 .contacts-table .table-row-cell:selected {
     -fx-background-color: derive(-fx-primary-lighter, 70%);
 }
+.table-column-photo {
+    -fx-alignment: CENTER;
+}
 
 /* === BOTTOM BAR === */
 .bottom-action-bar {

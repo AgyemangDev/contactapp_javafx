@@ -40,7 +40,7 @@ class PersonServiceTest {
         person.setEmailAddress("trim@test.com");
         person.setAddress("Street");
         person.setBirthDate(java.time.LocalDate.of(2000, 1, 1));
-        person.setPhoto(null);
+        person.setPhotoPath(null);
 
         personService.createPerson(person);
 

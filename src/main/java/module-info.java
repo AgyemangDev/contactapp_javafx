@@ -3,8 +3,9 @@ module fr.isen.java2 {
         requires javafx.fxml;
         requires transitive javafx.graphics;
         requires java.sql;
+    requires java.desktop;
 
-        // Export main package
+    // Export main package
         exports fr.isen.java2;
 
         opens fr.isen.java2 to javafx.fxml;

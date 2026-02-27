@@ -61,6 +61,9 @@ public class PersonService {
         if (isBlank(person.getNickname())) {
             throw new InvalidPerson("Nickname is required");
         }
+        if (person.getPhotoPath() != null && person.getPhotoPath().length() > 255) {
+            throw new InvalidPerson("Photo path too long");
+        }
 
         person.setFirstName(person.getFirstName().trim());
         person.setLastName(person.getLastName().trim());

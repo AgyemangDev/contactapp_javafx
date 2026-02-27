@@ -53,7 +53,8 @@ public class PersonDAO {
                     phone_number = ?,
                     address = ?,
                     email_address = ?,
-                    birth_date = ?
+                    birth_date = ?,
+                    photo_path = ?
                 WHERE idperson = ?
                 """;
 
@@ -61,7 +62,7 @@ public class PersonDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             bindPersonParameters(ps, person);
-            ps.setInt(8, person.getIdperson());
+            ps.setInt(9, person.getIdperson());
 
             ps.executeUpdate();
 
@@ -80,8 +81,9 @@ public class PersonDAO {
                     phone_number,
                     address,
                     email_address,
-                    birth_date
-                ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                    birth_date,
+                    photo_path
+                ) VALUES (?, ?, ?, ?, ?, ?, ?,?)
                 """;
 
         try (Connection conn = DatabaseManager.getConnection();
@@ -119,6 +121,7 @@ public class PersonDAO {
         } else {
             ps.setNull(7, Types.VARCHAR);
         }
+        ps.setString(8, person.getPhotoPath());
     }
 
 
@@ -132,6 +135,7 @@ public class PersonDAO {
         p.setPhoneNumber(rs.getString("phone_number"));
         p.setAddress(rs.getString("address"));
         p.setEmailAddress(rs.getString("email_address"));
+        p.setPhotoPath(rs.getString("photo_path"));
 
         p.setBirthDate(parseNullableLocalDate(rs.getString("birth_date")));
 
