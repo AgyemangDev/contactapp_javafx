@@ -39,6 +39,7 @@ public void initialize() {
     refreshData();
     setupSearch();
     personTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    personTable.setPlaceholder(new Label("No contacts found."));
 }
 
 public void refreshData() {
@@ -128,7 +129,11 @@ private void handleAdd() {
 
 @FXML
 private void handleHome() {
+
+    App.showView("Home");
+
     refreshData();
+
 }
 
 private void setupSearch() {

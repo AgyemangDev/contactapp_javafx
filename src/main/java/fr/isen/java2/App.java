@@ -22,13 +22,24 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        mainlayout = loadFXML("MainView");
-        scene = new Scene(mainlayout, 640, 480);
+
+        mainlayout = loadFXML("RootLayout");
+        scene = new Scene(mainlayout, 900, 600);
+        // GLOBAL CSS
+        scene.getStylesheets().add(
+                App.class.getResource("/css/main-view.css").toExternalForm()
+        );
+        scene.getStylesheets().add(
+                App.class.getResource("/css/person-form.css").toExternalForm()
+        );
 
         stage.setTitle("Contact App");
         stage.setScene(scene);
         stage.show();
+
+        showView("Home");
     }
+
 
     private static <T> T loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/" + fxml + ".fxml"));
@@ -42,14 +53,33 @@ public class App extends Application {
 
     public static void showView(String viewName) {
         try {
-            if ("MainView".equals(viewName)) {
-                mainlayout = loadFXML("MainView");
-                scene.setRoot(mainlayout);
-            } else {
-                mainlayout.setCenter(loadFXML(viewName));
+
+            if (viewName.equals("Home")) {
+                mainlayout.setTop(null); // Remove header
+                mainlayout.setBottom(null);
+                mainlayout.setCenter(loadFXML("Home"));
             }
+
+            else if (viewName.equals("MainView")) {
+                BorderPane contactsView = loadFXML("MainView");
+                mainlayout.setTop(contactsView.getTop());   // Header
+                mainlayout.setCenter(contactsView.getCenter());
+                mainlayout.setBottom(contactsView.getBottom());
+            }
+
+            else if (viewName.equals("PersonForm")) {
+                BorderPane formView = loadFXML("PersonForm");
+
+                // Keep header from contacts
+                BorderPane contactsView = loadFXML("MainView");
+                mainlayout.setTop(contactsView.getTop());
+
+                mainlayout.setCenter(formView);
+                mainlayout.setBottom(null);
+            }
+
         } catch (IOException e) {
-            throw new IllegalArgumentException(e);
+            throw new RuntimeException(e);
         }
     }
 

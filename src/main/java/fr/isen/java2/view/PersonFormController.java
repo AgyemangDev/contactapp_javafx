@@ -140,4 +140,8 @@ public class PersonFormController {
     private void alert(String msg) {
         new Alert(Alert.AlertType.WARNING, msg).showAndWait();
     }
+    @FXML
+    private void handleBack() {
+        App.showView("MainView");
+    }
 }

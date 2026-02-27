@@ -6,7 +6,7 @@
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="fr.isen.java2.view.PersonFormController"
-            stylesheets="@../css/person-form.css"
+       
             styleClass="form-container"
             minWidth="700" minHeight="550" maxHeight="650">
     
@@ -16,7 +16,9 @@
             <padding>
                 <Insets top="24" right="24" bottom="16" left="24"/>
             </padding>
+
             <Label fx:id="formTitle" text="➕ Add Contact" styleClass="form-title"/>
+
             <Separator/>
         </VBox>
     </top>
@@ -36,7 +38,10 @@
                     <VBox spacing="16" HBox.hgrow="ALWAYS">
                         
                         <!-- Personal Information -->
+
+                        
                         <TitledPane text="👤 Personal Information" expanded="true" collapsible="false">
+
                             <GridPane hgap="12" vgap="14">
                                 <padding>
                                     <Insets top="16" right="16" bottom="16" left="16"/>
@@ -66,7 +71,9 @@
                         </TitledPane>
 
                         <!-- Contact Information -->
+                        
                         <TitledPane text="📞 Contact Information" expanded="true" collapsible="false">
+
                             <GridPane hgap="12" vgap="14">
                                 <padding>
                                     <Insets top="16" right="16" bottom="16" left="16"/>
@@ -98,7 +105,10 @@
                         <padding>
                             <Insets top="16" right="16" bottom="16" left="16"/>
                         </padding>
+
+
                         <Label text="📷 Photo" styleClass="form-label"/>
+
                         <ImageView fx:id="photoView" fitHeight="140" fitWidth="140" 
                                    preserveRatio="true" styleClass="photo-preview"/>
                         <Button text="Choose Image" onAction="#handleSelectImage" 
@@ -113,14 +123,27 @@
 
     <!-- BOTTOM: Action Buttons -->
     <bottom>
-        <HBox spacing="12" alignment="CENTER_RIGHT" styleClass="form-actions">
-            <padding>
-                <Insets top="16" right="24" bottom="20" left="24"/>
-            </padding>
-            <Button text="✖ Cancel" onAction="#handleCancel" styleClass="button-secondary" minWidth="100"/>
-            <Button fx:id="saveButton" text="💾 Save Contact" onAction="#handleSave" 
-                    styleClass="button-success" minWidth="120"/>
-        </HBox>
+       <HBox spacing="12" alignment="CENTER_RIGHT" styleClass="form-actions">
+    <padding>
+        <Insets top="16" right="24" bottom="20" left="24"/>
+    </padding>
+
+    <Button text="← Back"
+            onAction="#handleBack"
+            styleClass="button-secondary"
+            minWidth="100"/>
+
+    <Button text="Cancel"
+            onAction="#handleCancel"
+            styleClass="button-secondary"
+            minWidth="100"/>
+
+    <Button fx:id="saveButton"
+            text="Save Contact"
+            onAction="#handleSave"
+            styleClass="button-success"
+            minWidth="120"/>
+</HBox>
     </bottom>
     
 </BorderPane>

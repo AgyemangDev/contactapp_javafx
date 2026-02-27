@@ -12,22 +12,26 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane styleClass="main-view-container" stylesheets="@../css/main-view.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.isen.java2.view.MainController">
+<BorderPane styleClass="main-view-container" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.isen.java2.view.MainController">
 
     <!-- Top toolbar -->
          <top>
     <HBox styleClass="main-toolbar" spacing="16" alignment="CENTER_LEFT">
+
+
         <Label styleClass="app-title" text="📇 Contact Manager"/>
         <Button text="Home" onAction="#handleHome" styleClass="nav-btn"/>
         <Region HBox.hgrow="ALWAYS"/>
         <TextField fx:id="searchField" promptText="🔍 Search contacts..."  styleClass="search-field"/>
+
     </HBox>
 </top>
 
 
     <!-- Center table - FULLY RESPONSIVE -->
     <center>
-        <VBox VBox.vgrow="ALWAYS">
+
+        <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
             <padding>
                 <Insets bottom="16" left="16" right="16" top="16" />
             </padding>
@@ -53,7 +57,10 @@
         <HBox alignment="CENTER_RIGHT" spacing="12" styleClass="bottom-action-bar">
             <Label fx:id="contactCountLabel" styleClass="contact-count" text="Total Contacts: 0" />
             <Region HBox.hgrow="ALWAYS" />
+
+
             <Button onAction="#handleAdd" styleClass="button-success" text="➕ Add Contact" />
+
         </HBox>
     </bottom>
 </BorderPane>

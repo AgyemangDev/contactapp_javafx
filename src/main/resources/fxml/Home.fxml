@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="fr.isen.java2.view.HomeController"
+      alignment="CENTER"
+      spacing="20">
+
+    <padding>
+        <Insets top="40"/>
+    </padding>
+
+    <Label text="🏠 Welcome to Contact Manager"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <Button text="Go to Contacts"
+            onAction="#handleOpenContacts"
+            styleClass="button-success"/>
+
+</VBox>
