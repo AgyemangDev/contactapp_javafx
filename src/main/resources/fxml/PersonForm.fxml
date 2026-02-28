@@ -7,8 +7,7 @@
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="fr.isen.java2.view.PersonFormController"
        
-            styleClass="form-container"
-            minWidth="700" minHeight="550" maxHeight="650">
+            styleClass="form-container">
     
     <!-- TOP: Form Header -->
     <top>
@@ -32,7 +31,7 @@
                 </padding>
 
                 <!-- Two Column Layout: Info on Left, Photo on Right -->
-                <HBox spacing="24">
+                <HBox spacing="24" VBox.vgrow="ALWAYS">
                     
                     <!-- LEFT SIDE: All Form Fields -->
                     <VBox spacing="16" HBox.hgrow="ALWAYS">
@@ -101,7 +100,7 @@
                     </VBox>
 
                     <!-- RIGHT SIDE: Photo Section -->
-                    <VBox spacing="12" alignment="TOP_CENTER" styleClass="photo-section" minWidth="180" prefWidth="180">
+                    <VBox spacing="12" alignment="TOP_CENTER" styleClass="photo-section" minWidth="140" prefWidth="170">
                         <padding>
                             <Insets top="16" right="16" bottom="16" left="16"/>
                         </padding>
@@ -131,18 +130,18 @@
     <Button text="← Back"
             onAction="#handleBack"
             styleClass="button-secondary"
-            minWidth="100"/>
+            />
 
     <Button text="Cancel"
             onAction="#handleCancel"
             styleClass="button-secondary"
-            minWidth="100"/>
+           />
 
     <Button fx:id="saveButton"
             text="Save Contact"
             onAction="#handleSave"
             styleClass="button-success"
-            minWidth="120"/>
+            />
 </HBox>
     </bottom>
     

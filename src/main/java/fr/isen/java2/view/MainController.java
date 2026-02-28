@@ -29,8 +29,6 @@ public class MainController {
     @FXML
     private TableColumn<Person, String> lastNameColumn;
     @FXML
-    private TableColumn<Person, String> nicknameColumn;
-    @FXML
     private TableColumn<Person, String> phoneColumn;
     @FXML
     private TableColumn<Person, String> emailColumn;
@@ -59,7 +57,7 @@ public class MainController {
         setupActionColumn();
         refreshData();
         setupSearch();
-        personTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        personTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         personTable.setPlaceholder(new Label("No contacts found."));
     }
 
@@ -81,7 +79,6 @@ public class MainController {
         idColumn.setCellValueFactory(new PersonValueFactory<>("idperson"));
         firstNameColumn.setCellValueFactory(new PersonValueFactory<>("firstName"));
         lastNameColumn.setCellValueFactory(new PersonValueFactory<>("lastName"));
-        nicknameColumn.setCellValueFactory(new PersonValueFactory<>("nickname"));
         phoneColumn.setCellValueFactory(new PersonValueFactory<>("phoneNumber"));
         emailColumn.setCellValueFactory(new PersonValueFactory<>("emailAddress"));
         addressColumn.setCellValueFactory(new PersonValueFactory<>("address"));
