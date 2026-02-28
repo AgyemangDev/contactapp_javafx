@@ -43,6 +43,10 @@
                     <TableColumn fx:id="photoColumn" text="Photo" prefWidth="90"/>
                     <TableColumn fx:id="lastNameColumn" minWidth="100" text="Last Name" />
                     <TableColumn fx:id="firstNameColumn" minWidth="100" text="First Name" />
+                    <TableColumn fx:id="nicknameColumn"
+             text="Nickname"
+             minWidth="40"
+             prefWidth="85"/>
                     <TableColumn fx:id="phoneColumn" minWidth="120" text="Phone" />
                     <TableColumn fx:id="emailColumn" minWidth="150" text="Email" />
                     <TableColumn fx:id="addressColumn" minWidth="150" text="Address" />
